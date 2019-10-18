@@ -15,7 +15,7 @@ function App() {
             <Link to="/login">Login</Link>
           </li>
           <li>
-            <Link to="/bubblepage">BubblePage</Link>
+            <Link to="/login">BubblePage</Link>
           </li>
         </ul>
         <Switch>
