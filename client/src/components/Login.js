@@ -43,7 +43,7 @@ class Login extends React.Component {
     axiosWithAuth()
       .post('/api/login', this.state.credentials)
       .then(res => {
-        console.log(res.data.payload)
+        // console.log(res.data.payload)
         localStorage.setItem('token', res.data.payload);
         this.props.history.push('/bubblepage');
       })

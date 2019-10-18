@@ -60,7 +60,7 @@ class BubblePage extends React.Component {
     }
 
   render(){
-    console.log(this.state.colorList)
+    // console.log(this.state.colorList)
     return (
       <>
         <ColorList colors={this.state.colorList} updateColors={this.state.colorList} />
