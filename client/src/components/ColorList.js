@@ -9,8 +9,8 @@ const initialColor = {
 };
 
 const ColorList = ({ colors, updateColors }) => {
-  console.log(colors);
-  console.log("this is update colors", updateColors);
+  // console.log(colors);
+  // console.log("this is update colors", updateColors);
   const [editing, setEditing] = useState(false);
   const [colorToEdit, setColorToEdit] = useState(initialColor);
 
@@ -26,7 +26,7 @@ const ColorList = ({ colors, updateColors }) => {
     axiosWithAuth()
     .put(`http://localhost:5000/api/colors/${colorToEdit.id}`, colorToEdit)
     .then(res => {
-      console.log(res)
+      // console.log(res)
     })
     .catch(err => console.log(err.response))
     // Make a put request to save your updated color
@@ -35,22 +35,13 @@ const ColorList = ({ colors, updateColors }) => {
   };
 
   const deleteColor = color => {
-    // make a delete request to delete this color
-    // color.preventDefault();
     axiosWithAuth()
-    .delete(`http://localhost:5000/api/colors/${colorToEdit.id}`)
+    .delete(`http://localhost:5000/api/colors/${color.id}`)
     .then(res => {
-      // console.log("res", res);
-      // console.log("colors/objectWFun", colors)
-      axiosWithAuth()
-      .get(`http://localhost:5000/api/colors`)
-      .then(res => {
-        console.log("super duper new res", res.data)
-        updateColors(res.data)
-      })
+      console.log("delete", res)
+      handleSubmit();
     })
     .catch(err => console.log(err))
-    // this.render();
   };
 
   const handleSubmit = () => {
@@ -74,7 +65,7 @@ const ColorList = ({ colors, updateColors }) => {
           <li key={color.color} onClick={() => editColor(color)}>
             <span>
               <span className="delete" onClick={() => deleteColor(color)}>
-                x
+              x
               </span>{" "}
               {color.color}
             </span>
