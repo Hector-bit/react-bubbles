@@ -19,7 +19,9 @@ function App() {
           </li>
         </ul>
         <Switch>
-          <PrivateRoute path="/bubblepage" component={BubblePage}/>
+          <PrivateRoute 
+          path="/bubblepage" 
+          component={BubblePage}/>
           <Route exact path="/login" component={Login} />
         </Switch>
       </div>
