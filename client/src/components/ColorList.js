@@ -50,6 +50,7 @@ const ColorList = ({ colors, updateColors }) => {
     .then(res => {
       console.log('handle', res)
       updateColors(res.data)
+      
       }
     )
     // this.render();
