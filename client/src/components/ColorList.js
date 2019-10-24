@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
+import { Link } from 'react-router-dom'
+import { axiosWithAuth } from "../utils/axiosWithAuth";
 
 const initialColor = {
   color: "",
@@ -7,7 +9,8 @@ const initialColor = {
 };
 
 const ColorList = ({ colors, updateColors }) => {
-  console.log(colors);
+  // console.log(colors);
+  // console.log("this is update colors", updateColors);
   const [editing, setEditing] = useState(false);
   const [colorToEdit, setColorToEdit] = useState(initialColor);
 
@@ -18,14 +21,42 @@ const ColorList = ({ colors, updateColors }) => {
 
   const saveEdit = e => {
     e.preventDefault();
+    // console.log('this is colortoedit', colorToEdit)
+    // const color = this.state.colors
+    axiosWithAuth()
+    .put(`http://localhost:5000/api/colors/${colorToEdit.id}`, colorToEdit)
+    .then(res => {
+      // console.log(res)
+    })
+    .catch(err => console.log(err.response))
     // Make a put request to save your updated color
     // think about where will you get the id from...
     // where is is saved right now?
   };
 
   const deleteColor = color => {
-    // make a delete request to delete this color
+    axiosWithAuth()
+    .delete(`http://localhost:5000/api/colors/${color.id}`)
+    .then(res => {
+      console.log("delete", res)
+      handleSubmit();
+    })
+    .catch(err => console.log(err))
   };
+
+  const handleSubmit = () => {
+    axiosWithAuth()
+    .get(`http://localhost:5000/api/colors`)
+    .then(res => {
+      console.log('handle', res)
+      updateColors(res.data)
+      
+      }
+    )
+    // this.render();
+  }
+
+  
 
   return (
     <div className="colors-wrap">
@@ -35,7 +66,7 @@ const ColorList = ({ colors, updateColors }) => {
           <li key={color.color} onClick={() => editColor(color)}>
             <span>
               <span className="delete" onClick={() => deleteColor(color)}>
-                x
+              x
               </span>{" "}
               {color.color}
             </span>
@@ -71,8 +102,8 @@ const ColorList = ({ colors, updateColors }) => {
             />
           </label>
           <div className="button-row">
-            <button type="submit">save</button>
-            <button onClick={() => setEditing(false)}>cancel</button>
+            <button type="submit" onClick={handleSubmit}>save</button>
+            <button onClick={() => setEditing(false)}><Link to="/bubblepage"></Link>cancel</button>
           </div>
         </form>
       )}
